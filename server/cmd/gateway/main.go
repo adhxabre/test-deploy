@@ -4,10 +4,12 @@ import (
 	"dumbmerch/database"
 	"dumbmerch/pkg/mysql"
 	"dumbmerch/routes"
+	"flag"
 	"fmt"
+	"log"
 	"net/http"
-	"os"
 
+	"github.com/carlmjohnson/gateway"
 	"github.com/gorilla/handlers"
 	"github.com/gorilla/mux"
 	"github.com/joho/godotenv"
@@ -38,7 +40,17 @@ func main() {
 	var AllowedOrigins = handlers.AllowedOrigins([]string{"*"})
 
 	// Modify 1 line this below code get port from env ...
-	var port = os.Getenv("PORT")
-	fmt.Println("server running localhost:" + port)
-	http.ListenAndServe(":"+port, handlers.CORS(AllowedHeaders, AllowedMethods, AllowedOrigins)(r))
+	port := flag.Int("port", -1, "specify a port to use http rather than AWS Lambda")
+	flag.Parse()
+	listener := gateway.ListenAndServe
+	portStr := ""
+
+	if *port != -1 {
+		portStr = fmt.Sprintf(":%d", *port)
+		listener = http.ListenAndServe
+		fmt.Println("server running localhost:" + portStr)
+		http.ListenAndServe(":"+portStr, handlers.CORS(AllowedHeaders, AllowedMethods, AllowedOrigins)(r))
+	}
+
+	log.Fatal(listener(portStr, nil))
 }

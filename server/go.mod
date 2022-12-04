@@ -3,6 +3,8 @@ module dumbmerch
 go 1.18
 
 require (
+	github.com/aws/aws-lambda-go v1.32.0 // indirect
+	github.com/carlmjohnson/gateway v1.22.2 // indirect
 	github.com/cloudinary/cloudinary-go/v2 v2.2.0 // indirect
 	github.com/creasty/defaults v1.5.1 // indirect
 	github.com/felixge/httpsnoop v1.0.3 // indirect
