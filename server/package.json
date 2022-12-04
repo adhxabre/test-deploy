@@ -1,0 +1,9 @@
+{
+    "name": "server",
+    "version": "0.1.0",
+    "private": true,
+    "scripts": {
+      "start": "go run main.go"
+    }
+  }
+  
