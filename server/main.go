@@ -38,7 +38,7 @@ func main() {
 	var AllowedOrigins = handlers.AllowedOrigins([]string{"*"})
 
 	// Modify 1 line this below code get port from env ...
-	var port = os.Getenv("PORT")
-	fmt.Println("server running localhost:" + port)
-	http.ListenAndServe(":"+port, handlers.CORS(AllowedHeaders, AllowedMethods, AllowedOrigins)(r))
+	// var port = os.Getenv("PORT")
+	fmt.Println("server running localhost")
+	http.ListenAndServe("localhost", handlers.CORS(AllowedHeaders, AllowedMethods, AllowedOrigins)(r))
 }
